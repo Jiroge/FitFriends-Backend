@@ -4,14 +4,14 @@ const userRouter = require ("./routes/userRoute");
 const { default: mongoose } = require('mongoose');
 const { json } = require("express");
 const config = require ("./config") 
-// const cors = require ("cors");
+const cors = require ("cors");
 const PORT = 8080;
 
-console.log (config)
-
-// app.use(cors());
+app.use(cors());
 app.use (express.json ());
 app.use (express.urlencoded ({extended: false}));
+
+console.log (config)
 
 app.use ('/users', userRouter);
 
@@ -34,5 +34,3 @@ const start = async () => {
   };
   
 start();
-
-const cors = require('cors');
