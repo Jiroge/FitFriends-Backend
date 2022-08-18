@@ -4,7 +4,7 @@ const userData = require ("../testdata.js")
 const userModels = require ("../models/usersModel.js");
 
 router.get ('/register', (req, res, next) => {
-    res.json (userData);
+    res.send (userData);
 });
 
 router.get ('/register/:id', (req, res, next) => {
@@ -15,15 +15,16 @@ router.get ('/register/:id', (req, res, next) => {
 });
 
 router.post ('/register', async (req, res) => {
-    console.log (req.body);
+    console.log (req.body.user_photo);
     // res.send ("test");
     const newUser = new userModels (req.body);
+    const newImage = req.body.user_photo;
     const validateResult = newUser.validateSync ();
     if (validateResult) {
         return res.status (400).send (validateResult)
     }
     await newUser.save ();
-    return res.send (req.body);
+    return res.send (newImage);
 });
 
 module.exports = router;
