@@ -5,7 +5,7 @@ const { default: mongoose } = require('mongoose');
 const { json } = require("express");
 const config = require ("./config") 
 const cors = require ("cors");
-const PORT = 8080;
+const PORT = 9000;
 
 const corsOptions = {
     origin: '*',
