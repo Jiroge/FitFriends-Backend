@@ -1,12 +1,9 @@
-const express = require ("express");
 const { default: mongoose } = require("mongoose");
-const mongodb = require ("mongodb")
 const userSchema = new mongoose.Schema({
   user_id: {
     type: String,
   },
   username: {
-    required: true,
     type: String,
     required: true,
   },
@@ -36,7 +33,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   user_photo: {
-    type: String
+    type: String,
   }
 });
 
