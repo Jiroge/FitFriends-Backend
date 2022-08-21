@@ -1,6 +1,7 @@
 const express = require ("express");
 const app = express ();
 const userRouter = require ("./routes/userRoute");
+const activityRouter = require("./routes/activityRoute");
 const { default: mongoose } = require('mongoose');
 const { json } = require("express");
 const config = require ("./config") 
@@ -17,6 +18,7 @@ app.use (express.json ());
 app.use (express.urlencoded ({extended: false}));
 
 app.use ('/users', userRouter);
+app.use ('/users', activityRouter);
 
 app.get ('/', (req, res) => {
   res.send ("<h1>Hello Express</h1>");
