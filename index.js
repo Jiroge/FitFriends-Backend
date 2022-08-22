@@ -2,6 +2,7 @@ const express = require ("express");
 const app = express ();
 const userRouter = require ("./routes/userRoute");
 const activityRouter = require("./routes/activityRoute");
+const editActivityRouter = require("./routes/editActivityRoute");
 const { default: mongoose } = require('mongoose');
 const { json } = require("express");
 const config = require ("./config") 
@@ -18,7 +19,7 @@ app.use (express.json ());
 app.use (express.urlencoded ({extended: false}));
 
 app.use ('/users', userRouter);
-app.use ('/users', activityRouter);
+app.use ('/activities', editActivityRouter);
 
 app.get ('/', (req, res) => {
   res.send ("<h1>Hello Express</h1>");
@@ -36,6 +37,6 @@ const start = async () => {
     app.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
     });
-  };
+};
   
 start();

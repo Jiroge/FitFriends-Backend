@@ -1,6 +1,7 @@
 const express = require ("express");
 const router = express.Router ();
 const userModels = require ("../models/usersModel.js");
+const activityRouter = require ("./activityRoute");
 const bcrypt = require('bcryptjs')
 router.get ('/register', (req, res, next) => {
     res.send("testData")
@@ -30,4 +31,6 @@ router.post ('/register', async (req, res) => {
     return res.send (newUser);
 });
 
+router.use ('/activity', activityRouter);
 module.exports = router;
+
