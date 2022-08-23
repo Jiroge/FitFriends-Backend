@@ -20,7 +20,7 @@ app.use (express.urlencoded ({extended: false}));
 
 app.use ('/users', userRouter);
 
-app.use ('/users/activities', addActivityRouter);
+app.use ('/activities', addActivityRouter);
 
 app.use ('/users', activityRouter);
 

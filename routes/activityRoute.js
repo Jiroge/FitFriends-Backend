@@ -5,8 +5,6 @@ const cors = require('cors');
 
 router.use(cors());
 
-
-
 router.get('/', async (req, res) => {
   const newActivity = await new ActivityModel.find();
   res.send(newActivity.map((act) => act.toJSON()));
@@ -24,15 +22,19 @@ router.get('/:activityId', async (req, res) => {
 
 router.post('/activityId', async (req, res) => {
   console.log('Body');
-  console.log(req.body);
+  // console.log(req.body);
   res.send(req.body);
   const newActivity = await new ActivityModel(req.body);
-  const validateResult = newActivity.validateSync();
+  const validateResult = newActivity.validateSync ();
   if (validateResult) {
-    return res.status(400).send(validateResult);
+      return res.status (404).send (validateResult)
   }
+
+  console.log(req.body);
   await newActivity.save();
-  return res.send(newActivity.toJSON());
+  return res.send (newActivity);
+
+  // return res.send(newActivity.toJSON());
 });
 
 // router.patch('/users/:id/activity/:id', (req, res) => {
