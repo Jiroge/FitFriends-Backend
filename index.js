@@ -1,11 +1,11 @@
 const express = require ("express");
 const app = express ();
 const userRouter = require ("./routes/userRoute");
+const addActivityRouter = require ("./routes/addActivityRoute");
 const activityRouter = require("./routes/activityRoute");
 const editActivityRouter = require("./routes/editActivityRoute");
 const { default: mongoose } = require('mongoose');
-const { json } = require("express");
-const config = require ("./config") 
+const config = require ("./config");
 const cors = require ("cors");
 const PORT = 9000;
 
@@ -13,13 +13,15 @@ const corsOptions = {
     origin: '*',
     credentials: true,
   };
-app.use(cors(corsOptions))
+
+app.use(cors(corsOptions));
 
 app.use (express.json ());
 app.use (express.urlencoded ({extended: false}));
 
 app.use ('/users', userRouter);
 app.use ('/activities', editActivityRouter);
+
 
 app.get ('/', (req, res) => {
   res.send ("<h1>Hello Express</h1>");

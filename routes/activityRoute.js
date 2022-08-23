@@ -3,7 +3,6 @@ const ActivityModel = require('../models/activitiesModel');
 const router = express.Router();
 
 
-
 // ส่วนเซฟ add post ลงdatabase
 router.post('/', async (req, res) => {
   console.log('Body');
@@ -11,9 +10,12 @@ router.post('/', async (req, res) => {
   const newActivity = await new ActivityModel(req.body);
   const validateResult = newActivity.validateSync()
   if (validateResult) {
-    return res.status(400).send(validateResult);
+      return res.status (404).send (validateResult)
   }
+
+  console.log(req.body);
   await newActivity.save();
+  // return res.send(newActivity.toJSON());
   res.send('test123')
   return res.status(newActivity);
 });
