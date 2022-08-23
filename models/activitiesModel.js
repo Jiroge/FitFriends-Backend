@@ -4,10 +4,10 @@ const mongodb = require('mongodb')
 
 
 const activitySchema = new mongoose.Schema({
-    activity_id: {
-        type: String,
-        required: true,
-      },
+      // activity_id: {
+      //   type: String,
+      //   required: true,
+      // },
       username: {
         type: String,
         required: true,
@@ -19,7 +19,6 @@ const activitySchema = new mongoose.Schema({
       sport: {
         type: String,
         required: true,
-        enum: ['Running', 'Swimming', 'Jogging', 'Boxing']
       },
       date: {
         type: Date,
@@ -46,8 +45,6 @@ const activitySchema = new mongoose.Schema({
       sport_photo: {
         type: String,
         required: true,
-        min: 0, 
-        max: 10000,
       },
     
 });

@@ -3,6 +3,7 @@ const app = express ();
 const userRouter = require ("./routes/userRoute");
 const addActivityRouter = require ("./routes/addActivityRoute");
 const activityRouter = require("./routes/activityRoute");
+const editActivityRouter = require("./routes/editActivityRoute");
 const { default: mongoose } = require('mongoose');
 const config = require ("./config");
 const cors = require ("cors");
@@ -19,10 +20,7 @@ app.use (express.json ());
 app.use (express.urlencoded ({extended: false}));
 
 app.use ('/users', userRouter);
-
-app.use ('/activities', addActivityRouter);
-
-app.use ('/users', activityRouter);
+app.use ('/activities', editActivityRouter);
 
 
 app.get ('/', (req, res) => {
@@ -41,6 +39,6 @@ const start = async () => {
     app.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
     });
-  };
+};
   
 start();
