@@ -3,7 +3,7 @@ const express = require("express");
 // const activityModel = require("../models/activitiesModel");
 const activityModels = require("../models/activitiesModel");
 const router = express.Router();
-ObjectId = require("mongoose").Types.ObjectId;
+const ObjectId = require('mongoose').Types.ObjectId;
 
 router.get("/", async (req, res) => {
   const getAllActivity = await activityModels.find();
@@ -12,24 +12,24 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:activityId", async (req, res) => {
-  console.log(req.params);
+  console.log(req.params.activityId);
   const findActivity = await activityModels.findOne({
-    _id: ObjectId(req.params.activityId),
+    _id: ObjectId(req.params.activityId)
   });
-  res.send(findActivity);
   console.log(findActivity);
-  const newFindActivity = {
-    "_id": findActivity ._id,
-    "sport": findActivity.sport,
-    "date": findActivity.date,
-    "time_start": findActivity.time_start,
-    "time_end": findActivity.time_end,
-    "location": findActivity.location,
-    "captions": findActivity.captions,
-    "sport_photo": findActivity.sport_photo,
-  }
-
+  res.send(findActivity);
+  
   // res.status(newFindActivity);
+});
+
+router.put ('/edit/:activityId', async (req, res) => {
+  console.log(req.params.activityId);
+  const editActivity = await activityModels.updateOne(
+    {_id: ObjectId(req.params.activityId)},
+    {$set: req.body}
+  );
+  res.send("already update Activity");
+  console.log("already update Activity");
 });
 
 module.exports = router;
