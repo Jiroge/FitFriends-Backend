@@ -1,44 +1,28 @@
-const express = require ("express");
-const app = express ();
-const userRouter = require ("./routes/userRoute");
-const addActivityRouter = require ("./routes/addActivityRoute");
-const activityRouter = require("./routes/activityRoute");
-const editActivityRouter = require("./routes/editActivityRoute");
-const { default: mongoose } = require('mongoose');
-const config = require ("./config");
-const cors = require ("cors");
-const PORT = 9000;
+const express = require('express');
+const {default: mongoose} = require('mongoose')
+const app = express()
+const usersRouter = require('./src/routes/users')
+const activitesRouter = require('./src/routes/activities')
+const PORT = 8080;
+const cors = require('cors')
+const config = require('./config')
+var bodyParser = require("body-parser");
 
-const corsOptions = {
-    origin: '*',
-    credentials: true,
-  };
+app.use(bodyParser.json({limit: '1mb'}));
+app.use(cors())
+app.use(express.json());
 
-app.use(cors(corsOptions));
-
-app.use (express.json ());
-app.use (express.urlencoded ({extended: false}));
-
-app.use ('/users', userRouter);
-app.use ('/activities', editActivityRouter);
+app.use('/users',usersRouter)
+app.use('/activities',activitesRouter)
 
 
-app.get ('/', (req, res) => {
-  res.send ("<h1>Hello Express</h1>");
-});
+const start= async ()=>{
+    await mongoose.connect(config.mongodb.uri,{user: config.mongodb.username,pass:config.mongodb.password,dbName:config.mongodb.dbName});
 
-const start = async () => {
-    // DO NOT COMMIT/PUSH USERNAME AND PASSWORD TO Github
-    await mongoose.connect ( config.mongodb.uri, {
-      user: config.mongodb.username,
-      pass: config.mongodb.password,
-      retryWrites: true,
-    }
-      , { dbName: "test" }
-    );
-    app.listen(PORT, () => {
-      console.log(`Server is listening on port ${PORT}`);
-    });
-};
-  
-start();
+    await app.listen(PORT,()=>{
+        console.log("Hello")    
+    })
+}
+
+start().catch(err=> console.log(err))
+
